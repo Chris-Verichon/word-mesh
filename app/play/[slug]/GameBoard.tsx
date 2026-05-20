@@ -4,15 +4,18 @@ import { useEffect } from "react";
 import { CrosswordGrid } from "@/components/grid/CrosswordGrid";
 import { CluePanel } from "@/components/grid/CluePanel";
 import { useGrid } from "@/hooks/useGrid";
-import type { Grid } from "@/lib/supabase/types";
+import type { Grid, RoomState } from "@/lib/supabase/types";
 
 interface GameBoardProps {
   grid: Grid;
+  initialState?: RoomState;
+  playerColors?: Record<string, string>; // player_id → color
+  currentUserId?: string;
 }
 
 // Client component: owns all keyboard + selection state via useGrid.
 // Wraps CrosswordGrid and CluePanel so the Server Component page stays clean.
-export function GameBoard({ grid }: GameBoardProps) {
+export function GameBoard({ grid, initialState, playerColors = {}, currentUserId }: GameBoardProps) {
   const {
     selectedCell,
     activeWordId,
@@ -20,7 +23,7 @@ export function GameBoard({ grid }: GameBoardProps) {
     localState,
     selectCell,
     handleKeyDown,
-  } = useGrid(grid.cells, grid.width, grid.height);
+  } = useGrid(grid.cells, grid.width, grid.height, initialState);
 
   // Attach keyboard listener to the window for the duration of the game
   useEffect(() => {
@@ -39,6 +42,7 @@ export function GameBoard({ grid }: GameBoardProps) {
           roomState={localState}
           selectedCell={selectedCell ?? undefined}
           activeWordId={activeWordId ?? undefined}
+          playerColors={playerColors}
           onCellClick={selectCell}
         />
       </div>
@@ -48,6 +52,13 @@ export function GameBoard({ grid }: GameBoardProps) {
         <CluePanel
           cells={grid.cells}
           width={grid.width}
+          height={grid.height}
+          activeClueId={activeClueCell ?? undefined}
+        />
+      </aside>
+    </div>
+  );
+}
           height={grid.height}
           activeClueId={activeClueCell ?? undefined}
         />

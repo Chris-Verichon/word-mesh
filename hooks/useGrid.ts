@@ -76,10 +76,16 @@ export interface UseGridReturn {
   handleKeyDown: (e: KeyboardEvent) => void;
 }
 
-export function useGrid(cells: GridCells, width: number, height: number): UseGridReturn {
+export function useGrid(
+  cells: GridCells,
+  width: number,
+  height: number,
+  initialState: RoomState = {}
+): UseGridReturn {
   const [selectedCell, setSelectedCell] = useState<string | null>(null);
   const [activeDirection, setActiveDirection] = useState<"h" | "v">("h");
-  const [localState, setLocalState] = useState<RoomState>({});
+  // initialState seeds the board with letters already present in the room
+  const [localState, setLocalState] = useState<RoomState>(initialState);
 
   // Derive active word id from selection + direction
   const activeWordId = (() => {
