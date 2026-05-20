@@ -11,6 +11,21 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.0] — 2026-05-20
+
+### Feature — `feature/keyboard-navigation`
+
+#### Added
+- `hooks/useGrid.ts`: client hook managing selected cell, active word/direction, active clue cell, and local room state; handles click selection, direction toggle, arrow key navigation, letter input (with French accent normalization), and Backspace
+- `app/play/[slug]/GameBoard.tsx`: client component wrapping `CrosswordGrid` + `CluePanel`, owns keyboard listener and bridges `useGrid` state to both components
+
+#### Changed
+- `components/grid/GridCell.tsx`: marked `"use client"` for interactive button handling
+- `components/grid/CrosswordGrid.tsx`: marked `"use client"`
+- `app/play/[slug]/page.tsx`: refactored to delegate interactive area to `GameBoard`
+
+---
+
 ## [0.3.0] — 2026-05-20
 
 ### Feature — `feature/grid-display`

@@ -13,8 +13,8 @@
 | `chore/project-setup` | ✅ Mergé dans develop |
 | `chore/database-schema` | ✅ Mergé dans develop |
 | `feature/auth` | ✅ Mergé dans develop |
-| `feature/grid-display` | ✅ En cours — prêt à merger |
-| `feature/keyboard-navigation` | ⬜ À faire |
+| `feature/grid-display` | ✅ Mergé dans develop |
+| `feature/keyboard-navigation` | ✅ En cours — prêt à merger |
 | `feature/room-system` | ⬜ À faire |
 | `feature/realtime-collaboration` | ⬜ À faire |
 | `feature/presence` | ⬜ À faire |

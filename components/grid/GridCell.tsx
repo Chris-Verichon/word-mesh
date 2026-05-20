@@ -1,3 +1,5 @@
+"use client";
+
 import type { BlackCell, Cell } from "@/lib/supabase/types";
 import { cn } from "@/lib/utils";
 

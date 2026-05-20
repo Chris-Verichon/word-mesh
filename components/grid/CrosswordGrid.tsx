@@ -1,3 +1,5 @@
+"use client";
+
 import type { GridCells, RoomState } from "@/lib/supabase/types";
 import { GridCell } from "./GridCell";
 
