@@ -11,6 +11,19 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.0] — 2026-05-20
+
+### Feature — `feature/auth`
+
+#### Added
+- `middleware.ts`: Supabase session refresh on every request + redirect unauthenticated users from `/play` to `/login`
+- `lib/auth/actions.ts`: Server Actions for anonymous sign-in (with display name), Google OAuth, and sign-out
+- `app/(auth)/callback/route.ts`: OAuth callback route, exchanges code for session and redirects to intended destination
+- `app/(auth)/login/page.tsx`: login page with anonymous pseudo input and Google OAuth button (shadcn Card, Input, Button)
+- shadcn components added: `card`, `input`, `label`, `separator`
+
+---
+
 ## [0.1.1] — 2026-05-20
 
 ### Chore — `chore/database-schema`

@@ -11,8 +11,8 @@
 | Branche | Statut |
 |---|---|
 | `chore/project-setup` | ✅ Mergé dans develop |
-| `chore/database-schema` | ✅ Pushé — prêt à merger |
-| `feature/auth` | ⬜ À faire |
+| `chore/database-schema` | ✅ Mergé dans develop |
+| `feature/auth` | ✅ En cours — prêt à merger |
 | `feature/grid-display` | ⬜ À faire |
 | `feature/keyboard-navigation` | ⬜ À faire |
 | `feature/room-system` | ⬜ À faire |
