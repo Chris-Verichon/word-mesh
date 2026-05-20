@@ -11,6 +11,20 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.0] — 2026-05-20
+
+### Feature — `feature/grid-display`
+
+#### Added
+- `lib/grid/fixtures.ts`: static fixture grid (5×5, facile) mirroring seed data
+- `components/grid/GridCell.tsx`: renders black (clue) cells and letter cells; supports player color, selection, active-word highlight
+- `components/grid/CrosswordGrid.tsx`: CSS Grid layout for the full crossword; accepts optional `roomState`, `selectedCell`, `activeWordId`, `playerColors` props for future features
+- `components/grid/CluePanel.tsx`: extracts and lists horizontal/vertical clues from the grid cells JSON, with optional active-clue highlight
+- `app/play/[slug]/page.tsx`: static game page rendering the fixture grid with header and clue panel
+- `app/play/page.tsx`: lobby placeholder page
+
+---
+
 ## [0.2.0] — 2026-05-20
 
 ### Feature — `feature/auth`
