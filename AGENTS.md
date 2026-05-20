@@ -35,6 +35,9 @@ Do not mix unrelated changes in a single commit.
 **Always ask the user for confirmation before running any git command** (commit, push, pull, merge, checkout, branch, reset, etc.).
 Never run git commands silently or chain them without explicit approval for each step.
 
+### 5. PLAN.md — keep up to date
+Update `docs/PLAN.md` on every branch: check off completed tasks and update the progress table at the top.
+
 ## Stack
 - Next.js 15 (App Router, TypeScript, Tailwind v4, Turbopack)
 - shadcn/ui · Prettier + prettier-plugin-tailwindcss
