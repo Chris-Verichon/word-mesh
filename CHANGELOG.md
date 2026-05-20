@@ -11,6 +11,28 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.0] — 2026-05-20
+
+### Feature — `feature/room-system`
+
+#### Added
+- `lib/room/slug.ts`: random French slug generator (`adj-noun-##`), with uniqueness check against the rooms table
+- `lib/room/colors.ts`: 6 player color constants matching `globals.css` CSS variables
+- `lib/room/create.ts`: `createRoomForUser` and `joinRoomIfNeeded` shared helpers
+- `app/play/actions.ts`: Server Action `createRoom(gridId)` — creates room + first player, redirects to `/play/[slug]`
+- `app/api/rooms/route.ts`: `POST /api/rooms` HTTP endpoint (same logic, for external clients)
+- `components/room/ShareButton.tsx`: client component — copies room URL to clipboard
+- `components/room/PlayerList.tsx`: displays players with colored dot indicators
+- `components/room/RoomHeader.tsx`: room header composing title, difficulty, player list and share button
+
+#### Changed
+- `app/play/page.tsx`: full lobby — fetches published grids from Supabase, one "Créer une salle" form per grid
+- `app/play/[slug]/page.tsx`: fetches real room + grid from Supabase, auto-joins authenticated user, passes `initialState` and `playerColors` to `GameBoard`
+- `app/play/[slug]/GameBoard.tsx`: accepts `initialState` and `playerColors` props
+- `hooks/useGrid.ts`: `useGrid` now accepts optional `initialState` to seed the board
+
+---
+
 ## [0.4.0] — 2026-05-20
 
 ### Feature — `feature/keyboard-navigation`
