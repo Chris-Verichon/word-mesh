@@ -1,9 +1,9 @@
 # Changelog
 
-Toutes les modifications notables de ce projet sont documentées ici.
+All notable changes to this project are documented here.
 
-Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
-Versioning selon [Semantic Versioning](https://semver.org/lang/fr/).
+Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
@@ -28,15 +28,15 @@ Versioning selon [Semantic Versioning](https://semver.org/lang/fr/).
 
 ### Chore — `chore/project-setup`
 
-#### Ajouté
-- Initialisation Next.js 15 (App Router, TypeScript, Tailwind v4, Turbopack)
-- Installation et configuration de shadcn/ui (base color neutral)
-- Packages Supabase : `@supabase/supabase-js`, `@supabase/ssr`
+#### Added
+- Next.js 15 initialization (App Router, TypeScript, Tailwind v4, Turbopack)
+- shadcn/ui setup (neutral base color)
+- Supabase packages: `@supabase/supabase-js`, `@supabase/ssr`
 - Prettier + `prettier-plugin-tailwindcss`
-- Design system dans `globals.css` : fond crème chaud, accent orange cuivré, 6 couleurs joueurs, polices Inter + Lora, radius 0.75rem
-- `app/layout.tsx` : métadonnées Word-Mesh, fonts Inter + Lora, lang="fr"
-- `app/page.tsx` : page d'accueil placeholder propre
-- `.env.example` avec toutes les variables documentées
+- Design system in `globals.css`: warm cream background, copper orange accent, 6 player colors, Inter + Lora fonts, 0.75rem radius
+- `app/layout.tsx`: Word-Mesh metadata, Inter + Lora fonts, lang="fr"
+- `app/page.tsx`: clean placeholder home page
+- `.env.example` with all variables documented
 - `prettier.config.ts`
-- `docs/SPEC.md` : spécification technique complète
-- `docs/PLAN.md` : plan de développement par branches
+- `docs/SPEC.md`: full technical specification
+- `docs/PLAN.md`: development plan by branches
