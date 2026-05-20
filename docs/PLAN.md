@@ -14,8 +14,8 @@
 | `chore/database-schema` | ✅ Mergé dans develop |
 | `feature/auth` | ✅ Mergé dans develop |
 | `feature/grid-display` | ✅ Mergé dans develop |
-| `feature/keyboard-navigation` | ✅ En cours — prêt à merger |
-| `feature/room-system` | ⬜ À faire |
+| `feature/keyboard-navigation` | ✅ Mergé dans develop |
+| `feature/room-system` | ✅ En cours — prêt à merger |
 | `feature/realtime-collaboration` | ⬜ À faire |
 | `feature/presence` | ⬜ À faire |
 | `feature/validation` | ⬜ À faire |
