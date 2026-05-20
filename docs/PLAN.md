@@ -6,30 +6,51 @@
 
 ---
 
+## Progression
+
+| Branche | Statut |
+|---|---|
+| `chore/project-setup` | ✅ Mergé dans develop |
+| `chore/database-schema` | ✅ Pushé — prêt à merger |
+| `feature/auth` | ⬜ À faire |
+| `feature/grid-display` | ⬜ À faire |
+| `feature/keyboard-navigation` | ⬜ À faire |
+| `feature/room-system` | ⬜ À faire |
+| `feature/realtime-collaboration` | ⬜ À faire |
+| `feature/presence` | ⬜ À faire |
+| `feature/validation` | ⬜ À faire |
+| `feature/grid-catalogue` | ⬜ À faire |
+| `feature/grid-importer` | ⬜ À faire |
+| `feature/grid-generator` | ⬜ À faire |
+| `chore/keep-alive` | ⬜ À faire |
+| `chore/ui-polish` | ⬜ À faire |
+
+---
+
 ## Branches à créer dans l'ordre
 
 ---
 
-### `chore/project-setup`
-**Initialisation du projet**
+### ✅ `chore/project-setup`
+**Initialisation du projet** — *mergé dans develop le 2026-05-20*
 
-- [ ] `npx create-next-app@latest` avec App Router, TypeScript, Tailwind
-- [ ] Installer et configurer shadcn/ui
-- [ ] Installer Supabase client (`@supabase/ssr`, `@supabase/supabase-js`)
-- [ ] Configurer les variables d'environnement (`.env.local`, `.env.example`)
-- [ ] Configurer ESLint + Prettier
-- [ ] Mettre en place le déploiement Vercel + lier le projet Supabase
-- [ ] Configurer le design system : tokens de couleurs, fonts (Inter + Lora) dans `tailwind.config.ts`
+- [x] `npx create-next-app@latest` avec App Router, TypeScript, Tailwind
+- [x] Installer et configurer shadcn/ui
+- [x] Installer Supabase client (`@supabase/ssr`, `@supabase/supabase-js`)
+- [x] Configurer les variables d'environnement (`.env.local`, `.env.example`)
+- [x] Configurer ESLint + Prettier
+- [ ] Mettre en place le déploiement Vercel + lier le projet Supabase *(à faire manuellement)*
+- [x] Configurer le design system : tokens de couleurs, fonts (Inter + Lora) dans `globals.css`
 
 ---
 
-### `chore/database-schema`
-**Mise en place du schéma Supabase**
+### ✅ `chore/database-schema`
+**Mise en place du schéma Supabase** — *pushé le 2026-05-20, prêt à merger*
 
-- [ ] Créer les tables `grids`, `rooms`, `room_players`, `profiles` via les migrations Supabase
-- [ ] Configurer les politiques RLS sur `rooms` et `room_players`
-- [ ] Activer Supabase Realtime sur la table `rooms`
-- [ ] Seeder la DB avec 3 grilles de test hardcodées (format JSON manuel)
+- [x] Créer les tables `grids`, `rooms`, `room_players`, `profiles` via les migrations Supabase
+- [x] Configurer les politiques RLS sur `rooms` et `room_players`
+- [x] Activer Supabase Realtime sur la table `rooms`
+- [x] Seeder la DB avec 3 grilles de test hardcodées (format JSON manuel)
 
 ---
 

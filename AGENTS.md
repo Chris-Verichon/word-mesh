@@ -31,6 +31,13 @@ Increment the version according to the branch type:
 2–5 commits per branch. Each commit must represent one logical unit of work.
 Do not mix unrelated changes in a single commit.
 
+### 4. Git confirmation — REQUIRED
+**Always ask the user for confirmation before running any git command** (commit, push, pull, merge, checkout, branch, reset, etc.).
+Never run git commands silently or chain them without explicit approval for each step.
+
+### 5. PLAN.md — keep up to date
+Update `docs/PLAN.md` on every branch: check off completed tasks and update the progress table at the top.
+
 ## Stack
 - Next.js 15 (App Router, TypeScript, Tailwind v4, Turbopack)
 - shadcn/ui · Prettier + prettier-plugin-tailwindcss
