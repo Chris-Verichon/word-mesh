@@ -11,6 +11,19 @@ Versioning selon [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
+## [0.1.1] — 2026-05-20
+
+### Chore — `chore/database-schema`
+
+#### Added
+- `supabase/migrations/001_initial_schema.sql`: tables `profiles`, `grids`, `rooms`, `room_players` with RLS policies and Realtime enabled
+- `supabase/seed.sql`: 3 test grids for local development
+- `lib/supabase/client.ts`: typed browser client (`createBrowserClient`)
+- `lib/supabase/server.ts`: typed server client for RSC/Server Actions + service role client for cron jobs
+- `lib/supabase/types.ts`: full TypeScript types for all tables, JSONB structures (`GridCells`, `RoomState`, `CellState`, etc.) and `Database` generic type
+
+---
+
 ## [0.1.0] — 2026-05-20
 
 ### Chore — `chore/project-setup`
