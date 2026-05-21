@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,7 +30,21 @@ export default function RootLayout({
       lang="fr"
       className={`${inter.variable} ${lora.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="flex min-h-full flex-col bg-background text-foreground">
+        {/* Global navigation */}
+        <header className="border-border/60 sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
+          <nav className="mx-auto flex max-w-5xl items-center gap-6 px-4 py-3">
+            <Link href="/" className="font-serif text-lg font-semibold">
+              Word-Mesh
+            </Link>
+            <Link
+              href="/grids"
+              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+            >
+              Grilles
+            </Link>
+          </nav>
+        </header>
         {children}
       </body>
     </html>
