@@ -11,6 +11,27 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.8.0] — 2026-05-21
+
+### Feature — `feature/validation`
+
+#### Added
+- "Vérifier" button in the clue panel sidebar
+  - Compares each filled, non-verified cell against `cell.solution`
+  - Correct cells: `verified_at` timestamp set, cell rendered in green, locked against further editing
+  - Wrong cells: highlighted in red, remain editable for correction
+  - Verified cells are broadcast to other players and persisted to DB immediately
+  - Room `status` set to `"completed"` when all letter cells are verified correct
+- Completion banner displayed above the grid when the room is complete
+
+#### Changed
+- `hooks/useGrid.ts`: new `lockedCells?: Set<string>` option — typing and backspace skip verified cells
+- `components/grid/GridCell.tsx`: new `isVerified` and `isWrong` props with green/red visual states
+- `components/grid/CrosswordGrid.tsx`: new `wrongCells?: Set<string>` prop, derives `isVerified` from `cellState.verified_at`
+- `app/play/[slug]/GameBoard.tsx`: complete rewrite of state management — `verifiedState` overlay, `lockedCells` derivation, `handleVerify` callback, full display state merge
+
+---
+
 ## [0.7.0] — 2026-05-21
 
 ### Feature — `feature/presence`

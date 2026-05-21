@@ -17,8 +17,8 @@
 | `feature/keyboard-navigation` | ✅ Mergé dans develop |
 | `feature/room-system` | ✅ Mergé dans develop |
 | `feature/realtime-collaboration` | ✅ Mergé dans develop |
-| `feature/presence` | ✅ En cours — prêt à merger |
-| `feature/validation` | ⬜ À faire |
+| `feature/presence` | ✅ Mergé dans develop |
+| `feature/validation` | ✅ En cours — prêt à merger |
 | `feature/grid-catalogue` | ⬜ À faire |
 | `feature/grid-importer` | ⬜ À faire |
 | `feature/grid-generator` | ⬜ À faire |
