@@ -10,8 +10,10 @@ export interface GridCellProps {
   isSelected?: boolean;
   isActiveWord?: boolean;
   playerColor?: string; // hex color of the player who typed the letter
-  cursorColor?: string; // color of another player whose cursor is on this cell  isVerified?: boolean; // letter matches the solution
-  isWrong?: boolean; // letter does not match the solution  onClick?: (id: string) => void;
+  cursorColor?: string; // color of another player whose cursor is on this cell
+  isVerified?: boolean; // letter matches the solution
+  isWrong?: boolean; // letter does not match the solution
+  onClick?: (id: string) => void;
 }
 
 // Arrow indicator rendered inside a black cell clue section
@@ -116,7 +118,7 @@ export function GridCell({
           aria-hidden="true"
         />
       )}
-      {/* Player color tint overlay */}}
+      {/* Player color tint overlay */}
       {playerColor && value && (
         <span
           className="pointer-events-none absolute inset-0 opacity-15"

@@ -110,7 +110,7 @@ function parseIpuz(raw: unknown): ParsedGrid {
   const isBlack = (r: number, c: number) => doc.puzzle[r]?.[c] === "#";
   const letterAt = (r: number, c: number): string | null => {
     const v = doc.solution[r]?.[c];
-    if (!v || v === 0 || v === "." || v === "#") return null;
+    if (!v || v === "0" || v === "." || v === "#") return null;
     return String(v).toUpperCase();
   };
 

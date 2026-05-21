@@ -20,8 +20,8 @@
 | `feature/presence` | ✅ Mergé dans develop |
 | `feature/validation` | ✅ Mergé dans develop |
 | `feature/grid-catalogue` | ✅ Mergé dans develop |
-| `feature/grid-importer` | ✅ En cours — prêt à merger |
-| `feature/grid-generator` | ⬜ À faire |
+| `feature/grid-importer` | ✅ Mergé dans develop |
+| `feature/grid-generator` | ✅ En cours — prêt à merger |
 | `chore/keep-alive` | ⬜ À faire |
 | `chore/ui-polish` | ⬜ À faire |
 
