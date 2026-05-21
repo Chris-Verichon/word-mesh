@@ -10,8 +10,8 @@ export interface GridCellProps {
   isSelected?: boolean;
   isActiveWord?: boolean;
   playerColor?: string; // hex color of the player who typed the letter
-  cursorColor?: string; // color of another player whose cursor is on this cell
-  onClick?: (id: string) => void;
+  cursorColor?: string; // color of another player whose cursor is on this cell  isVerified?: boolean; // letter matches the solution
+  isWrong?: boolean; // letter does not match the solution  onClick?: (id: string) => void;
 }
 
 // Arrow indicator rendered inside a black cell clue section
@@ -76,6 +76,8 @@ export function GridCell({
   isActiveWord = false,
   playerColor,
   cursorColor,
+  isVerified = false,
+  isWrong = false,
   onClick,
 }: GridCellProps) {
   // Black (clue) cells are non-interactive
@@ -94,10 +96,15 @@ export function GridCell({
       onClick={() => onClick?.(id)}
       className={cn(
         "relative flex h-full w-full items-center justify-center text-xl font-bold uppercase transition-colors",
-        // Background variants
-        isSelected && "bg-primary/20 ring-2 ring-inset ring-primary",
-        isActiveWord && !isSelected && "bg-primary/8",
-        !isSelected && !isActiveWord && "bg-background hover:bg-muted/40",
+        // Validation states take priority over selection highlights
+        isVerified && "bg-emerald-500/10",
+        isWrong && "bg-red-500/10",
+        // Selection/word highlights (only when not in a validation state)
+        !isVerified && !isWrong && isSelected && "bg-primary/20 ring-2 ring-inset ring-primary",
+        !isVerified && !isWrong && isActiveWord && !isSelected && "bg-primary/8",
+        !isVerified && !isWrong && !isSelected && !isActiveWord && "bg-background hover:bg-muted/40",
+        isSelected && isVerified && "ring-2 ring-inset ring-emerald-500",
+        isSelected && isWrong && "ring-2 ring-inset ring-red-500",
       )}
       aria-label={`Case ${id}${value ? `, lettre ${value}` : ""}`}
     >
@@ -118,8 +125,12 @@ export function GridCell({
       )}
       {/* Typed letter */}
       <span
-        className="relative font-sans"
-        style={playerColor && value ? { color: playerColor } : undefined}
+        className={cn(
+          "relative font-sans",
+          isVerified && "text-emerald-700 dark:text-emerald-400",
+          isWrong && "text-red-600 dark:text-red-400",
+        )}
+        style={!isVerified && !isWrong && playerColor && value ? { color: playerColor } : undefined}
       >
         {value ?? ""}
       </span>

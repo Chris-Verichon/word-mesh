@@ -16,6 +16,7 @@ interface CrosswordGridProps {
   activeWordId?: string;
   playerColors?: Record<string, string>; // player_id → hex color
   cursorMap?: Record<string, string>; // cellId → color of the player whose cursor is there
+  wrongCells?: Set<string>; // cellIds where the typed letter does not match the solution
   onCellClick?: (id: string) => void;
 }
 
@@ -28,6 +29,7 @@ export function CrosswordGrid({
   activeWordId,
   playerColors = {},
   cursorMap = {},
+  wrongCells,
   onCellClick,
 }: CrosswordGridProps) {
   return (
@@ -79,6 +81,8 @@ export function CrosswordGrid({
                 isActiveWord={isActiveWord}
                 playerColor={playerColor}
                 cursorColor={cursorMap[id]}
+                isVerified={!!cellState?.verified_at}
+                isWrong={wrongCells?.has(id) ?? false}
                 onClick={onCellClick}
               />
             </div>
