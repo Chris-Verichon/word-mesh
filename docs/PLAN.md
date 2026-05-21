@@ -18,8 +18,8 @@
 | `feature/room-system` | ✅ Mergé dans develop |
 | `feature/realtime-collaboration` | ✅ Mergé dans develop |
 | `feature/presence` | ✅ Mergé dans develop |
-| `feature/validation` | ✅ En cours — prêt à merger |
-| `feature/grid-catalogue` | ⬜ À faire |
+| `feature/validation` | ✅ Mergé dans develop |
+| `feature/grid-catalogue` | ✅ En cours — prêt à merger |
 | `feature/grid-importer` | ⬜ À faire |
 | `feature/grid-generator` | ⬜ À faire |
 | `chore/keep-alive` | ⬜ À faire |

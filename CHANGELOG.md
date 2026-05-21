@@ -11,6 +11,24 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.9.0] — 2026-05-21
+
+### Feature — `feature/grid-catalogue`
+
+#### Added
+- `/grids` page: grid catalogue with title, difficulty badge, SVG miniature, and "Créer une salle" button per grid
+- `components/catalogue/GridCard.tsx`: card component with `GridMiniature` SVG preview, difficulty badge (color-coded), and room creation form
+- `components/catalogue/DifficultyFilter.tsx`: client component with "Toutes / Facile / Moyen / Difficile" filter buttons that update URL search params
+- `components/grid/GridMiniature.tsx`: small SVG rendering the black/letter cell structure of a grid (no text)
+- Global navigation header (`app/layout.tsx`): sticky top bar with Word-Mesh logo and "Grilles" nav link
+- Home page (`/`): hero section with CTA to `/grids` + "Grille du Jour" section featuring the latest published grid
+
+#### Changed
+- `app/layout.tsx`: added sticky navigation header; `body` class uses standard flex-col order
+- `app/page.tsx`: replaced static placeholder with live hero + daily grid section
+
+---
+
 ## [0.8.0] — 2026-05-21
 
 ### Feature — `feature/validation`
