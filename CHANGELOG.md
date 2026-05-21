@@ -11,6 +11,27 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.10.0] — 2026-05-21
+
+### Feature — `feature/grid-importer`
+
+#### Added
+- `lib/grid/importer.ts`: grid parser supporting two formats:
+  - **IPUZ** (`http://ipuz.org/v2`) — parses `puzzle` + `solution` arrays, maps numbered clues to preceding black cells, auto-assigns `word_id_h`/`word_id_v`
+  - **Word-Mesh native JSON** — validates and passes through the existing `GridCells` structure
+  - `detectFormat()`: auto-detects format from the payload shape
+  - `parseGrid()`: public entry point, throws descriptive errors on invalid input
+- `app/api/admin/grids/import/route.ts`: protected `POST /api/admin/grids/import` endpoint
+  - Auth: `Authorization: Bearer <IMPORT_SECRET>` (env var)
+  - Accepts `{ data, format?, difficulty? }` JSON body
+  - Always inserts with `published: false` (draft) and `source: "imported"` (US29)
+  - Returns `{ id }` on success with HTTP 201
+- `scripts/import-grids.ts`: CLI script for bulk import from a local folder
+  - Usage: `IMPORT_SECRET=<s> npx tsx scripts/import-grids.ts <dir> [--url <base>] [--difficulty <d>]`
+  - Processes all `.json` and `.ipuz` files; reports per-file success/failure
+
+---
+
 ## [0.9.0] — 2026-05-21
 
 ### Feature — `feature/grid-catalogue`
