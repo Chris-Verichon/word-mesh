@@ -56,6 +56,14 @@ export default async function PlayPage({
     players.map((p) => [p.user_id, p.color])
   );
 
+  // Resolve the current player's display name for the presence channel
+  const currentPlayer = players.find((p) => p.user_id === user?.id);
+  const currentDisplayName =
+    currentPlayer?.display_name ??
+    user?.user_metadata?.display_name ??
+    user?.user_metadata?.full_name ??
+    "Joueur";
+
   return (
     <div className="flex h-screen flex-col">
       <RoomHeader
@@ -70,6 +78,7 @@ export default async function PlayPage({
         initialState={room.state as RoomState}
         playerColors={playerColors}
         currentUserId={user?.id}
+        currentDisplayName={currentDisplayName}
       />
     </div>
   );
