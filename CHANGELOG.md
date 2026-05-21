@@ -11,6 +11,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.11.1] — 2026-05-21
+
+### Chore — `chore/keep-alive`
+
+#### Added
+- `app/api/cron/ping/route.ts`: lightweight keep-alive endpoint — queries one
+  row from `grids` to prevent Supabase free-tier from pausing the project
+- `vercel.json`: added ping cron running daily at 12:00 UTC
+
+---
+
 ## [0.11.0] — 2026-05-21
 
 ### Feature — `feature/grid-generator`

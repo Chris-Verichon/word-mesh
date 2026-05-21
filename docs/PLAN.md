@@ -21,8 +21,8 @@
 | `feature/validation` | ✅ Mergé dans develop |
 | `feature/grid-catalogue` | ✅ Mergé dans develop |
 | `feature/grid-importer` | ✅ Mergé dans develop |
-| `feature/grid-generator` | ✅ En cours — prêt à merger |
-| `chore/keep-alive` | ⬜ À faire |
+| `feature/grid-generator` | ✅ Mergé dans develop |
+| `chore/keep-alive` | ✅ En cours — prêt à merger |
 | `chore/ui-polish` | ⬜ À faire |
 
 ---
