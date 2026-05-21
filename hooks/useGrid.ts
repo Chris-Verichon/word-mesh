@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import type { GridCells, RoomState } from "@/lib/supabase/types";
+import { useState, useCallback, useRef, useEffect } from "react";
+import type { CellState, GridCells, RoomState } from "@/lib/supabase/types";
 
 // --------------- Grid coordinate helpers ---------------
 
@@ -65,6 +65,18 @@ function findClueCell(
 
 // --------------- Public interface ---------------
 
+export interface UseGridOptions {
+  /** Current player's user id — written into CellState. */
+  playerId?: string;
+  /** Current player's CSS color — written into CellState. */
+  playerColor?: string;
+  /**
+   * Called whenever a cell changes (letter written or deleted).
+   * Use this to broadcast updates to other players via Realtime.
+   */
+  onCellChange?: (cellId: string, cellState: CellState | null) => void;
+}
+
 export interface UseGridReturn {
   selectedCell: string | null;
   activeWordId: string | null;
@@ -80,12 +92,24 @@ export function useGrid(
   cells: GridCells,
   width: number,
   height: number,
-  initialState: RoomState = {}
+  options: UseGridOptions = {}
 ): UseGridReturn {
+  const { playerId = "local", playerColor = "", onCellChange } = options;
+
+  // Use refs so handleKeyDown stays stable across option changes
+  const playerIdRef = useRef(playerId);
+  const playerColorRef = useRef(playerColor);
+  const onCellChangeRef = useRef(onCellChange);
+  useEffect(() => {
+    playerIdRef.current = playerId;
+    playerColorRef.current = playerColor;
+    onCellChangeRef.current = onCellChange;
+  });
+
   const [selectedCell, setSelectedCell] = useState<string | null>(null);
   const [activeDirection, setActiveDirection] = useState<"h" | "v">("h");
-  // initialState seeds the board with letters already present in the room
-  const [localState, setLocalState] = useState<RoomState>(initialState);
+  // Local state tracks only the current user's typed letters this session
+  const [localState, setLocalState] = useState<RoomState>({});
 
   // Derive active word id from selection + direction
   const activeWordId = (() => {
@@ -150,6 +174,7 @@ export function useGrid(
             delete next[selectedCell];
             return next;
           });
+          onCellChangeRef.current?.(selectedCell, null);
         } else {
           const dx = activeDirection === "h" ? -1 : 0;
           const dy = activeDirection === "v" ? -1 : 0;
@@ -161,6 +186,7 @@ export function useGrid(
               delete next[prev];
               return next;
             });
+            onCellChangeRef.current?.(prev, null);
           }
         }
         return;
@@ -174,15 +200,14 @@ export function useGrid(
           .replace(/[\u0300-\u036f]/g, "")
           .toUpperCase();
 
-        setLocalState((s) => ({
-          ...s,
-          [selectedCell]: {
-            value: letter,
-            player_id: "local",
-            color: "",
-            verified_at: null,
-          },
-        }));
+        const cellState: CellState = {
+          value: letter,
+          player_id: playerIdRef.current,
+          color: playerColorRef.current,
+          verified_at: null,
+        };
+        setLocalState((s) => ({ ...s, [selectedCell]: cellState }));
+        onCellChangeRef.current?.(selectedCell, cellState);
 
         // Advance cursor to next cell in the active word direction
         const dx = activeDirection === "h" ? 1 : 0;
