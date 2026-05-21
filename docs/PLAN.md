@@ -15,8 +15,8 @@
 | `feature/auth` | ✅ Mergé dans develop |
 | `feature/grid-display` | ✅ Mergé dans develop |
 | `feature/keyboard-navigation` | ✅ Mergé dans develop |
-| `feature/room-system` | ✅ En cours — prêt à merger |
-| `feature/realtime-collaboration` | ⬜ À faire |
+| `feature/room-system` | ✅ Mergé dans develop |
+| `feature/realtime-collaboration` | ✅ En cours — prêt à merger |
 | `feature/presence` | ⬜ À faire |
 | `feature/validation` | ⬜ À faire |
 | `feature/grid-catalogue` | ⬜ À faire |
