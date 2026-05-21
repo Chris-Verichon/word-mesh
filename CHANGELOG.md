@@ -11,6 +11,29 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.6.0] — 2026-05-21
+
+### Feature — `feature/realtime-collaboration`
+
+#### Added
+- `hooks/useRoomRealtime.ts`: Supabase Realtime broadcast channel hook
+  - Subscribes to `room:{roomId}` channel and merges live `cell_update` events from other players into `remoteState`
+  - Exposes `broadcastCell(cellId, cellState | null)` to publish local changes
+  - Seeds `remoteState` with the DB snapshot (`initialState`) so existing letters appear immediately
+- Debounced DB persistence in `GameBoard`: 2 s after the last keystroke, merged state is saved back to `rooms.state`
+
+#### Changed
+- `hooks/useGrid.ts`: replaced 4th positional `initialState` param with an `options: UseGridOptions` object
+  - New options: `playerId`, `playerColor`, `onCellChange` callback
+  - `CellState` entries now carry the real `player_id` and `color`
+  - `onCellChange` is called on every letter write and backspace delete
+- `app/play/[slug]/GameBoard.tsx`: wires `useRoomRealtime` + `useGrid` together
+  - Displays `mergedState = { ...remoteState, ...localState }` so all players' letters are visible
+  - Passes `roomId` to enable the Realtime subscription
+- `app/play/[slug]/page.tsx`: passes `roomId={room.id}` to `GameBoard`
+
+---
+
 ## [0.5.0] — 2026-05-20
 
 ### Feature — `feature/room-system`
