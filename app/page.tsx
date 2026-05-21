@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { GridCard } from "@/components/catalogue/GridCard";
 
 export default async function Home() {
@@ -27,9 +27,9 @@ export default async function Home() {
           Mots fléchés collaboratifs en temps réel. Résolvez les grilles avec vos amis, où que vous
           soyez.
         </p>
-        <Button asChild size="lg">
-          <Link href="/grids">Voir toutes les grilles</Link>
-        </Button>
+        <Link href="/grids" className={buttonVariants({ size: "lg" })}>
+          Voir toutes les grilles
+        </Link>
       </section>
 
       {/* Daily grid */}
