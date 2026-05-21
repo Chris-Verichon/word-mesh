@@ -75,6 +75,8 @@ export interface UseGridOptions {
    * Use this to broadcast updates to other players via Realtime.
    */
   onCellChange?: (cellId: string, cellState: CellState | null) => void;
+  /** Cell ids that are locked (verified correct). Typing and backspace are disabled on these. */
+  lockedCells?: Set<string>;
 }
 
 export interface UseGridReturn {
@@ -94,16 +96,18 @@ export function useGrid(
   height: number,
   options: UseGridOptions = {}
 ): UseGridReturn {
-  const { playerId = "local", playerColor = "", onCellChange } = options;
+  const { playerId = "local", playerColor = "", onCellChange, lockedCells } = options;
 
   // Use refs so handleKeyDown stays stable across option changes
   const playerIdRef = useRef(playerId);
   const playerColorRef = useRef(playerColor);
   const onCellChangeRef = useRef(onCellChange);
+  const lockedCellsRef = useRef(lockedCells);
   useEffect(() => {
     playerIdRef.current = playerId;
     playerColorRef.current = playerColor;
     onCellChangeRef.current = onCellChange;
+    lockedCellsRef.current = lockedCells;
   });
 
   const [selectedCell, setSelectedCell] = useState<string | null>(null);
@@ -168,6 +172,14 @@ export function useGrid(
       // Backspace — clear current cell, or move to previous cell and clear it
       if (key === "Backspace") {
         e.preventDefault();
+        if (lockedCellsRef.current?.has(selectedCell)) {
+          // Verified cells cannot be cleared — just move the cursor back
+          const dx = activeDirection === "h" ? -1 : 0;
+          const dy = activeDirection === "v" ? -1 : 0;
+          const prev = step(cells, selectedCell, dx, dy, width, height);
+          if (prev) setSelectedCell(prev);
+          return;
+        }
         if (localState[selectedCell]?.value) {
           setLocalState((s) => {
             const next = { ...s };
@@ -195,6 +207,14 @@ export function useGrid(
       // Letter input — normalize accented French characters to their ASCII base
       if (/^[a-zA-ZÀ-ÿ]$/.test(key)) {
         e.preventDefault();
+        // Verified cells are locked — skip but advance cursor
+        if (lockedCellsRef.current?.has(selectedCell)) {
+          const dx = activeDirection === "h" ? 1 : 0;
+          const dy = activeDirection === "v" ? 1 : 0;
+          const next = step(cells, selectedCell, dx, dy, width, height);
+          if (next) setSelectedCell(next);
+          return;
+        }
         const letter = key
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
