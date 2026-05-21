@@ -34,7 +34,7 @@ export const FIXTURE_GRID: Grid = {
     "1-4": { type: "letter", solution: "C", word_id_h: "w_h_4", word_id_v: "w_v_1" },
     "2-4": { type: "letter", solution: "H", word_id_h: "w_h_4", word_id_v: "w_v_2" },
     "3-4": { type: "letter", solution: "A", word_id_h: "w_h_4", word_id_v: "w_v_3" },
-    "4-4": { type: "black", arrows: [], clue_right: null, clue_down: null },
+    "4-4": { type: "black", arrows: [], clue_right: undefined, clue_down: undefined },
   },
   source: "generated",
   published: true,
