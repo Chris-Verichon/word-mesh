@@ -11,6 +11,24 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.7.0] — 2026-05-21
+
+### Feature — `feature/presence`
+
+#### Added
+- `hooks/usePresence.ts`: Supabase Realtime Presence channel hook
+  - Broadcasts the current player's cursor cell whenever selection changes
+  - Returns `cursorMap` (cellId → color of other player there) and `onlineUserIds`
+- Cursor dot overlay on letter cells: 8 px colored circle at top-right corner shows where another player is focused
+
+#### Changed
+- `components/grid/GridCell.tsx`: new `cursorColor?: string` prop renders presence dot
+- `components/grid/CrosswordGrid.tsx`: new `cursorMap?: Record<string, string>` prop, forwarded to each cell
+- `app/play/[slug]/GameBoard.tsx`: integrates `usePresence`, passes `cursorMap` to `CrosswordGrid`
+- `app/play/[slug]/page.tsx`: resolves `currentDisplayName` from `room_players` or user metadata, passes to `GameBoard`
+
+---
+
 ## [0.6.0] — 2026-05-21
 
 ### Feature — `feature/realtime-collaboration`
