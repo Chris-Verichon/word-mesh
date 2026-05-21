@@ -15,6 +15,7 @@ interface CrosswordGridProps {
   selectedCell?: string;
   activeWordId?: string;
   playerColors?: Record<string, string>; // player_id → hex color
+  cursorMap?: Record<string, string>; // cellId → color of the player whose cursor is there
   onCellClick?: (id: string) => void;
 }
 
@@ -26,6 +27,7 @@ export function CrosswordGrid({
   selectedCell,
   activeWordId,
   playerColors = {},
+  cursorMap = {},
   onCellClick,
 }: CrosswordGridProps) {
   return (
@@ -76,6 +78,7 @@ export function CrosswordGrid({
                 isSelected={selectedCell === id}
                 isActiveWord={isActiveWord}
                 playerColor={playerColor}
+                cursorColor={cursorMap[id]}
                 onClick={onCellClick}
               />
             </div>

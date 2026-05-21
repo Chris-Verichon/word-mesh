@@ -10,6 +10,7 @@ export interface GridCellProps {
   isSelected?: boolean;
   isActiveWord?: boolean;
   playerColor?: string; // hex color of the player who typed the letter
+  cursorColor?: string; // color of another player whose cursor is on this cell
   onClick?: (id: string) => void;
 }
 
@@ -74,6 +75,7 @@ export function GridCell({
   isSelected = false,
   isActiveWord = false,
   playerColor,
+  cursorColor,
   onClick,
 }: GridCellProps) {
   // Black (clue) cells are non-interactive
@@ -99,7 +101,15 @@ export function GridCell({
       )}
       aria-label={`Case ${id}${value ? `, lettre ${value}` : ""}`}
     >
-      {/* Player color tint overlay */}
+      {/* Cursor dot — shown when another player is focused on this cell */}
+      {cursorColor && (
+        <span
+          className="pointer-events-none absolute right-0.5 top-0.5 h-2 w-2 rounded-full ring-1 ring-background"
+          style={{ backgroundColor: cursorColor }}
+          aria-hidden="true"
+        />
+      )}
+      {/* Player color tint overlay */}}
       {playerColor && value && (
         <span
           className="pointer-events-none absolute inset-0 opacity-15"
