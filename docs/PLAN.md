@@ -19,8 +19,8 @@
 | `feature/realtime-collaboration` | ✅ Mergé dans develop |
 | `feature/presence` | ✅ Mergé dans develop |
 | `feature/validation` | ✅ Mergé dans develop |
-| `feature/grid-catalogue` | ✅ En cours — prêt à merger |
-| `feature/grid-importer` | ⬜ À faire |
+| `feature/grid-catalogue` | ✅ Mergé dans develop |
+| `feature/grid-importer` | ✅ En cours — prêt à merger |
 | `feature/grid-generator` | ⬜ À faire |
 | `chore/keep-alive` | ⬜ À faire |
 | `chore/ui-polish` | ⬜ À faire |
