@@ -1,21 +1,42 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { createClient } from "@/lib/supabase/client";
 import { CrosswordGrid } from "@/components/grid/CrosswordGrid";
 import { CluePanel } from "@/components/grid/CluePanel";
 import { useGrid } from "@/hooks/useGrid";
+import { useRoomRealtime } from "@/hooks/useRoomRealtime";
 import type { Grid, RoomState } from "@/lib/supabase/types";
 
 interface GameBoardProps {
   grid: Grid;
+  roomId: string;
   initialState?: RoomState;
   playerColors?: Record<string, string>; // player_id → color
   currentUserId?: string;
 }
 
-// Client component: owns all keyboard + selection state via useGrid.
-// Wraps CrosswordGrid and CluePanel so the Server Component page stays clean.
-export function GameBoard({ grid, initialState, playerColors = {}, currentUserId }: GameBoardProps) {
+// Client component: owns keyboard/selection state and wires Realtime sync.
+export function GameBoard({
+  grid,
+  roomId,
+  initialState = {},
+  playerColors = {},
+  currentUserId,
+}: GameBoardProps) {
+  const supabase = useMemo(() => createClient(), []);
+
+  // Current player's color (used when writing CellState entries)
+  const currentColor = currentUserId ? (playerColors[currentUserId] ?? "") : "";
+
+  // Remote state: seeded with DB snapshot, updated by other players' broadcasts
+  const { remoteState, broadcastCell } = useRoomRealtime(
+    roomId,
+    currentUserId ?? "anon",
+    initialState
+  );
+
+  // Local state: only this player's typed letters in the current session
   const {
     selectedCell,
     activeWordId,
@@ -23,9 +44,39 @@ export function GameBoard({ grid, initialState, playerColors = {}, currentUserId
     localState,
     selectCell,
     handleKeyDown,
-  } = useGrid(grid.cells, grid.width, grid.height, initialState);
+  } = useGrid(grid.cells, grid.width, grid.height, {
+    playerId: currentUserId,
+    playerColor: currentColor,
+    onCellChange: broadcastCell,
+  });
 
-  // Attach keyboard listener to the window for the duration of the game
+  // Merge for display: remote (includes DB snapshot) then local overrides
+  const mergedState = useMemo(
+    () => ({ ...remoteState, ...localState }),
+    [remoteState, localState]
+  );
+
+  // Keep a ref to the latest mergedState so the debounced persist always uses fresh data
+  const mergedStateRef = useRef(mergedState);
+  useEffect(() => {
+    mergedStateRef.current = mergedState;
+  }, [mergedState]);
+
+  // Debounced DB persistence: 2s after the last local keystroke, save full merged state
+  useEffect(() => {
+    if (Object.keys(localState).length === 0) return;
+
+    const timer = setTimeout(async () => {
+      await supabase
+        .from("rooms")
+        .update({ state: mergedStateRef.current })
+        .eq("id", roomId);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [localState, roomId, supabase]);
+
+  // Global keyboard listener
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -39,7 +90,7 @@ export function GameBoard({ grid, initialState, playerColors = {}, currentUserId
           cells={grid.cells}
           width={grid.width}
           height={grid.height}
-          roomState={localState}
+          roomState={mergedState}
           selectedCell={selectedCell ?? undefined}
           activeWordId={activeWordId ?? undefined}
           playerColors={playerColors}

@@ -66,6 +66,7 @@ export default async function PlayPage({
       />
       <GameBoard
         grid={grid}
+        roomId={room.id}
         initialState={room.state as RoomState}
         playerColors={playerColors}
         currentUserId={user?.id}
