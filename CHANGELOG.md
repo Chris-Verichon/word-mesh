@@ -11,6 +11,30 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.11.0] — 2026-05-21
+
+### Feature — `feature/grid-generator`
+
+#### Added
+- `lib/grid/generator.ts`: procedural mots-fléchés grid generator
+  - Seeded LCG PRNG for reproducible output
+  - Random layout generation with black-cell density per difficulty, auto-fixes runs shorter than `minWordLen`
+  - Word placement via backtracking: filters candidates by already-placed crossing letters, max 80 candidates per slot to bound runtime
+  - Three difficulty presets: `facile` (7×7), `moyen` (10×10), `difficile` (13×13)
+  - Word list loaded lazily from `data/wordlist-fr.json`; falls back to 300-word built-in list
+  - Diacritic normalization (accent stripped to ASCII — standard for French crosswords)
+  - `generateGrid(options?)` public API returning `ParsedGrid | null`
+- `data/wordlist-fr.json`: seed word list (~300 common French words, ASCII-normalized)
+- `scripts/build-wordlist.ts`: downloads Lexique.org 3.83 TSV, filters by frequency and length, outputs `data/wordlist-fr.json`
+- `app/api/cron/generate-grids/route.ts`: cron endpoint `GET /api/cron/generate-grids`
+  - Protected by `Authorization: Bearer <CRON_SECRET>`
+  - Generates one grid per difficulty (facile / moyen / difficile), auto-publishes (US30)
+  - Returns `{ generated, failed, results }`
+  - `maxDuration: 60` for Vercel Pro compatibility
+- `vercel.json`: Vercel cron schedule — runs `generate-grids` daily at 02:00 UTC
+
+---
+
 ## [0.10.0] — 2026-05-21
 
 ### Feature — `feature/grid-importer`
